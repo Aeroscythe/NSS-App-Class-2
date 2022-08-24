@@ -135,21 +135,21 @@ public class Arrange_num_control : MonoBehaviour
     ////////// Makes ques array and sets it in text boxes ///////////
     public void QuesMaker()
     {
-        int[] flag = new int[9];
+        int[] flag = new int[90];
 
-        for (int i = 0; i < 9; ++i)
+        for (int i = 0; i < 90; ++i)
         {
             flag[i] = 0;
         }
 
         for (int i = 0; i < 9; ++i)
         {
-            int t = UnityEngine.Random.Range(1, 10);
+            int t = UnityEngine.Random.Range(10, 100);
 
-            if (flag[t - 1] == 0)
+            if (flag[t - 10] == 0)
             {
                 Data_ques[i] = t;
-                flag[t - 1] = 1;
+                flag[t - 10] = 1;
             }
             else
             {

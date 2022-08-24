@@ -14,6 +14,8 @@ public class Manage_Addition_Substraction : MonoBehaviour
     public Text answer;
     public Text remark;
 
+    int numberoftries = 0;
+
     void Start()
     {
         reinstantiate();
@@ -27,6 +29,8 @@ public class Manage_Addition_Substraction : MonoBehaviour
 
     void reinstantiate()
     {
+        numberoftries = 0;
+
         num1.text = UnityEngine.Random.Range(0,100).ToString();
         num2.text = UnityEngine.Random.Range(0,100).ToString();
         answer.text = "";
@@ -50,7 +54,7 @@ public class Manage_Addition_Substraction : MonoBehaviour
     {
         int result = 0;
 
-        if(sign.text=="+")
+        if (sign.text=="+")
         {
             result = Int32.Parse(num1.text) + Int32.Parse(num2.text);
         }
@@ -67,6 +71,14 @@ public class Manage_Addition_Substraction : MonoBehaviour
         {
             remark.text="Incorrect, Try again!";
             answer.text = "";
+            numberoftries += 1;
         }
+
+        if (numberoftries >= 3)
+        {
+            remark.text = "Correct answer is: " + result.ToString();
+            Invoke("reinstantiate", 1);
+        }
+
     }
 }

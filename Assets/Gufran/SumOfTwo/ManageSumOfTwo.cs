@@ -9,9 +9,11 @@ public class ManageSumOfTwo : MonoBehaviour
     // Start is called before the first frame update
     public Text num1;
     public Text num2;
+    public Text Que;
 
     public Text finalnum;
     public Text remark;
+    int wrongcnt = 0;
     void Start()
     {
         reinstantiate();
@@ -23,25 +25,52 @@ public class ManageSumOfTwo : MonoBehaviour
         
     }
 
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(2.0f);
+        reinstantiate();
+    }
+    IEnumerator wDelay()
+    {
+        yield return new WaitForSeconds(1.0f);
+        remark.text = "";
+        num1.text = "";
+        num2.text = "";
+        wrongcnt++;
+    }
+
     void reinstantiate()
     {
         finalnum.text = UnityEngine.Random.Range(0,100).ToString();
+        Que.text = "Represent " + Int32.Parse(finalnum.text) + " as a sum of any two numbers:";
+        remark.text = "";
         num1.text = "";
         num2.text = "";
     }
 
     public void OnEnter()
     {
-        if((Int32.Parse(num1.text)+Int32.Parse(num2.text))==Int32.Parse(finalnum.text))
+        if ((Int32.Parse(num1.text) + Int32.Parse(num2.text)) == Int32.Parse(finalnum.text))
         {
             remark.text = "Correct!";
-            reinstantiate();
+            StartCoroutine(Delay());
+            wrongcnt = 0;
         }
-        else
+        else if (wrongcnt < 2)
         {
-            remark.text = "Incorrect!";
-            num1.text = "";
-            num2.text = "";
+            remark.text = "Wrong, Try Again.";
+            StartCoroutine(wDelay());
+
+        }
+        else 
+        {
+            int a = Int32.Parse(finalnum.text) / 2;
+            int b = Int32.Parse(finalnum.text) - a;
+            num1.text = a.ToString();
+            num2.text = b.ToString();
+            wrongcnt = 0;
+            StartCoroutine(Delay());
+
         }
     }
 }

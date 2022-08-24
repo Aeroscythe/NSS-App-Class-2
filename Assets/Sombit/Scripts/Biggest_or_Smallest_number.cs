@@ -14,6 +14,8 @@ public class Biggest_or_Smallest_number : MonoBehaviour
     public Text AnswerStatus;
     public Text Question;
     int answernumber;
+    int tries;
+    bool status;
     Button[] buttons;
 
     void Start()
@@ -25,6 +27,8 @@ public class Biggest_or_Smallest_number : MonoBehaviour
     void InitializeQuestion()
     {
         choicenum = Random.Range(0, 2);
+        tries = 0;
+        status = false;
         generateDigits();
         for (int i = 0; i < buttons.Length; i++)
             buttons[i].interactable = true;
@@ -35,7 +39,7 @@ public class Biggest_or_Smallest_number : MonoBehaviour
         else
             Question.text += "smallest ";
         Question.text += "possible number from the given digits without repeating";
-        AnswerStatus.text = " ";
+
     }
 
     void generateDigits()
@@ -82,7 +86,7 @@ public class Biggest_or_Smallest_number : MonoBehaviour
             dig[1] = dig[2];
             dig[2] = t;
         }
-        if(choicenum==0)
+        if (choicenum == 0)
             targetnum = dig[0] * 100 + dig[1] * 10 + dig[2];
         else
             targetnum = dig[2] * 100 + dig[1] * 10 + dig[0];
@@ -97,6 +101,7 @@ public class Biggest_or_Smallest_number : MonoBehaviour
     {
         AnswerDisplay.text = " ";
         answernumber = 0;
+        AnswerStatus.text = " ";
     }
 
     public void Add1()
@@ -155,15 +160,33 @@ public class Biggest_or_Smallest_number : MonoBehaviour
         if (answernumber == targetnum)
         {
             AnswerStatus.text = "Correct!";
+            status = true;
         }
         else
         {
             AnswerStatus.text = "Wrong!";
+            tries++;
         }
 
 
-        for (int i = 0; i < buttons.Length; i++)
-            buttons[i].interactable = false;
-        Invoke("InitializeQuestion", 1);
+        if (tries > 2)
+        {
+            AnswerDisplay.text = "Correct answer:\n" + targetnum.ToString();
+            for (int i = 0; i < buttons.Length; i++)
+                buttons[i].interactable = false;
+            Invoke("InitializeQuestion", 2);
+        }
+
+        else if (status)
+        {
+            for (int i = 0; i < buttons.Length; i++)
+                buttons[i].interactable = false;
+            Invoke("InitializeQuestion", 1);
+        }
+
+        else
+        {
+            Invoke("ClearDisplay", 1);
+        }
     }
 }

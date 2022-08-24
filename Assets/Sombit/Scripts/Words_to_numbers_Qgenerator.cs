@@ -5,29 +5,64 @@ using UnityEngine.UI;
 
 public class Words_to_numbers_Qgenerator : MonoBehaviour
 {
-    public string[] word;
+    string[] word;
+    string target;
     int number;
     int answernumber;
     public Text NumberToWordBox;
     public Text AnswerDisplay;
     public Text AnswerStatus;
+    int tries;
+    bool status;
     Button[] buttons;
 
 
     void Start()
     {
         buttons = GetComponentsInChildren<Button>();
+        word = new string[29];
+        word[0] = "";
+        word[1] = "one";
+        word[2] = "two";
+        word[3] = "three";
+        word[4] = "four";
+        word[5] = "five";
+        word[6] = "six";
+        word[7] = "seven";
+        word[8] = "eight";
+        word[9] = "nine";
+        word[10] = "ten";
+        word[11] = "eleven";
+        word[12] = "twelve";
+        word[13] = "thirteen";
+        word[14] = "fourteen";
+        word[15] = "fifteen";
+        word[16] = "sixteen";
+        word[17] = "seventeen";
+        word[18] = "eighteen";
+        word[19] = "nineteen";
+        word[20] = "twenty";
+        word[21] = "thirty";
+        word[22] = "forty";
+        word[23] = "fifty";
+        word[24] = "sixty";
+        word[25] = "seventy";
+        word[26] = "eighty";
+        word[27] = "ninety";
+        word[28] = "hundred";
         InitializeQuestion();
     }
 
     void NumbertoWord()
     {
         if (number == 100)
-            NumberToWordBox.text = word[word.Length-1];
-        else if(number<20)
-            NumberToWordBox.text = word[number];
+            target = word[word.Length - 1];
+        else if (number < 20)
+            target = word[number];
         else
-            NumberToWordBox.text = word[(number/10)+18]+" "+word[number%10];
+            target = word[(number / 10) + 18] + " " + word[number % 10];
+        target = char.ToUpper(target[0]) + target.Substring(1);
+        NumberToWordBox.text = target;
     }
 
     void InitializeQuestion()
@@ -38,7 +73,8 @@ public class Words_to_numbers_Qgenerator : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
             buttons[i].interactable = true;
         ClearDisplay();
-        AnswerStatus.text = " ";
+        tries = 0;
+        status = false;
     }
 
     void UpdateDisplay()
@@ -49,8 +85,9 @@ public class Words_to_numbers_Qgenerator : MonoBehaviour
     {
         AnswerDisplay.text = " ";
         answernumber = 0;
+        AnswerStatus.text = " ";
     }
-    
+
     public void Add1()
     {
         answernumber = answernumber * 10 + 1;
@@ -104,19 +141,46 @@ public class Words_to_numbers_Qgenerator : MonoBehaviour
 
     public void Evaluate()
     {
-        if(answernumber==number)
+
+
+        if (answernumber == number)
         {
             AnswerStatus.text = "Correct!";
+            status = true;
+
         }
         else
         {
             AnswerStatus.text = "Wrong!";
+            tries++;
         }
 
-        
-        for (int i = 0; i < buttons.Length; i++)
-            buttons[i].interactable = false;
-        Invoke("InitializeQuestion", 1);
+
+
+
+        if (tries > 2 || status == true)
+        {
+            if (tries > 2)
+            {
+                AnswerDisplay.text = "Correct answer:\n" + number.ToString();
+                for (int i = 0; i < buttons.Length; i++)
+                    buttons[i].interactable = false;
+                Invoke("InitializeQuestion", 3);
+
+            }
+
+            else
+            {
+                for (int i = 0; i < buttons.Length; i++)
+                    buttons[i].interactable = false;
+                Invoke("InitializeQuestion", 1);
+            }
+        }
+
+        else if (tries < 3)
+        {
+            Invoke("ClearDisplay", 1);
+        }
     }
 
 

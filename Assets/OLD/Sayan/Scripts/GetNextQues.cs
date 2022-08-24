@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GetNextQues : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GetNextQues : MonoBehaviour
     public QnA qa;
 
     public LineRenderer[] lrs;
-    public TextMeshProUGUI tmp;
+    public Text txt;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class GetNextQues : MonoBehaviour
                 lr.SetPosition(0, new Vector3(0, 0, 0));
                 lr.SetPosition(1, new Vector3(0, 0, 1));
             }
-            tmp.text = "";
+            txt.text = "";
             que.Clear();
             qa.ShowQuestion();
         }

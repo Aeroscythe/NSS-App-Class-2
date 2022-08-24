@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class multiplication : MonoBehaviour
 {
-    int a, b, count, ans, rans;
-    public Text v1, v2, corr, wron, alld;
+    int a, b, count, ans, rans,x;
+    public Text v1, v2, corr, alld;
     public Text answer;
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,8 @@ public class multiplication : MonoBehaviour
         count = 1;
         a = Random.Range(0, 10);
         b = Random.Range(0, 10);
-    }
+        x = 0;
+     }
 
     // Update is called once per frame
     void Update()
@@ -31,6 +32,14 @@ public class multiplication : MonoBehaviour
         v1.text = "" + (a);
         v2.text = "" + (b);
         rans = a * b;
+
+        if (x == 3)
+        {
+            answer.text = "" + (rans);
+            corr.text = "Solution";
+            StartCoroutine(Solution());
+            
+        }
 
     }
 
@@ -231,8 +240,7 @@ public class multiplication : MonoBehaviour
         else
         {
             corr.text = "INCORRECT";
-            ans = 0;
-            count = 1;
+            StartCoroutine(Incorrectans());
         }
     }
     IEnumerator delay()
@@ -245,10 +253,28 @@ public class multiplication : MonoBehaviour
     }
     public void newques()
     {
-
+        x = 0;
         count = 1;
         a = Random.Range(0, 10);
         b = Random.Range(0, 10);
+    }
+    IEnumerator Incorrectans()
+    {
+        yield return new WaitForSeconds(1);
+        ans = 0;
+        count = 1;
+        corr.text = "";
+        x++;
+        
+    }
+    IEnumerator Solution()
+    {
+        yield return new WaitForSeconds(2);
+        ans = 0;
+        count = 1;
+        corr.text = "";
+        x=0;
+        newques();
     }
 
 
