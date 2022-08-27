@@ -257,7 +257,7 @@ public class Arrange_num_control : MonoBehaviour
     IEnumerator ResetQues()
     {
         Routine_check = false;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         for (int i = 0; i < 9; i++)
         {
             ques[i].transform.position = Initial_Pos_ans[i];

@@ -72,6 +72,7 @@ public class IdentifyMultiple : MonoBehaviour
 
     IEnumerator ShowCorrect()
     {
+        qsn.text = "Correct answer is: " + temp;
         options[indexAdded].image.color = Color.green;
         yield return new WaitForSeconds(1.5f);
         options[indexAdded].image.color = Color.white;
