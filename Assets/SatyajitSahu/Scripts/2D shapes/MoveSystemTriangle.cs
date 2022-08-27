@@ -8,6 +8,8 @@ public class MoveSystemTriangle : MonoBehaviour
     private bool moving;
     private bool finish;
 
+    int i = 1;
+
     [SerializeField] float xMinDiastance = 2.6f;
     [SerializeField] float yMinDiastance = 2.4f;
 
@@ -70,10 +72,27 @@ public class MoveSystemTriangle : MonoBehaviour
         }
         else
         {
-            this.transform.position = new Vector3(resetPosition.x, resetPosition.y, resetPosition.z);
-            p = FindObjectOfType<PanelChanger>();
-            p.WrongActive();
-            Invoke("WrongEnd", 1.0f);
+            while (i <= 3)
+            {
+                this.transform.position = new Vector3(resetPosition.x, resetPosition.y, resetPosition.z);
+                //p = FindObjectOfType<PanelChanger>();
+                //p.WrongActive();
+                //Invoke("WrongEnd", 1.0f);
+                if (i < 3)
+                {
+                    p = FindObjectOfType<PanelChanger>();
+                    p.WrongActive();
+                    Invoke("WrongEnd", 1.0f);
+                }
+                if (i == 3)
+                {
+                    p = FindObjectOfType<PanelChanger>();
+                    p.ConeCorrect();
+                    Invoke("Change", 2.0f);
+                }
+                i = i + 1;
+                break;
+            }      //CHANGE
         }
     }
 

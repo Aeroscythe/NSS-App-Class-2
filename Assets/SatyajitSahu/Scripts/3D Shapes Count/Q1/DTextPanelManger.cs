@@ -323,7 +323,7 @@ public class DTextPanelManger : MonoBehaviour
         minPanel.SetActive(false);
         minText.SetActive(false);
         correctMinText.SetActive(true);
-        QuestionChange();
+        //QuestionChange();
     }
 
     public void QuestionChange()

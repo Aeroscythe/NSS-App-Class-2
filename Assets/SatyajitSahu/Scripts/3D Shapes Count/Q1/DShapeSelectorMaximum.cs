@@ -9,6 +9,8 @@ public class DShapeSelectorMaximum : MonoBehaviour
     [SerializeField] Text codeText;
     string codeTextValue = "";
 
+    int i = 0; //change
+
     TextPanelManger text;
 
     // Update is called once per frame
@@ -22,16 +24,37 @@ public class DShapeSelectorMaximum : MonoBehaviour
             text.MaximumCorrect();
             Invoke("Tick", 1.0f);
         }
-
         if (codeTextValue != "CYLINDER" && codeTextValue.Length >= 4)
         {
-            codeTextValue = "";
+            while (i < 3)  //change
+            {
+                codeTextValue = "";
+                text = FindObjectOfType<TextPanelManger>();
+                text.WrongActive();
+                text = FindObjectOfType<TextPanelManger>();
+                text.MaxWrong();
+                Invoke("Cross", 1.0f);
+                if(i == 2)
+                {
+                    text = FindObjectOfType<TextPanelManger>();
+                    text.WrongActive();
+                    text = FindObjectOfType<TextPanelManger>();
+                    text.MaxWrong();
+                    Invoke("CWW", 3.0f);
+                    Invoke("CWWW", 1.0f);
+
+                }
+                Invoke("CW", 1.0f);
+                i++;
+                break;
+            }
+            /*codeTextValue = "";
             text = FindObjectOfType<TextPanelManger>();
             text.WrongActive();
             text = FindObjectOfType<TextPanelManger>();
             text.MaxWrong();
             Invoke("Cross", 1.0f);
-            Invoke("CW", 1.0f);
+            Invoke("CW", 1.0f);*/
         }
     }
 
@@ -56,6 +79,17 @@ public class DShapeSelectorMaximum : MonoBehaviour
     {
         text = FindObjectOfType<TextPanelManger>();
         text.MaxWrongWrong();
+    }
+
+    public void CWW() //change
+    {
+        text = FindObjectOfType<TextPanelManger>();
+        text.WrongNotActive();
+    }
+    public void CWWW() //change
+    {
+        text = FindObjectOfType<TextPanelManger>();
+        text.MaxCorrect();
     }
 
 }

@@ -9,6 +9,8 @@ public class DShapeSelectorMinimum1 : MonoBehaviour
     [SerializeField] Text codeText;
     string codeTextValue = "";
 
+    int i = 0;
+
     TextPanelManger1 text;
 
     // Update is called once per frame
@@ -16,22 +18,44 @@ public class DShapeSelectorMinimum1 : MonoBehaviour
     {
         codeText.text = codeTextValue;
 
-        if (codeTextValue == "SQUARE")
+        if (codeTextValue == "CYLINDER")
         {
             text = FindObjectOfType<TextPanelManger1>();
             text.MinimumCorrect();
             Invoke("Tick", 1.0f);
         }
 
-        if (codeTextValue != "SQUARE" && codeTextValue.Length >= 4)
+        if (codeTextValue != "CYLINDER" && codeTextValue.Length >= 4)
         {
-            codeTextValue = "";
+            while (i < 3)  //change
+            {
+                codeTextValue = "";
+                text = FindObjectOfType<TextPanelManger1>();
+                text.WrongActive();
+                text = FindObjectOfType<TextPanelManger1>();
+                text.MinWrong();
+                Invoke("Cross", 1.0f);
+                if (i == 2)
+                {
+                    text = FindObjectOfType<TextPanelManger1>();
+                    text.WrongActive();
+                    text = FindObjectOfType<TextPanelManger1>();
+                    text.MinWrong();
+                    Invoke("CWW", 3.0f);
+                    Invoke("CWWW", 1.0f);
+
+                }
+                Invoke("CW", 1.0f);
+                i++;
+                break;
+            }
+            /*codeTextValue = "";
             text = FindObjectOfType<TextPanelManger1>();
             text = FindObjectOfType<TextPanelManger1>();
             text.MinWrong();
             text.WrongActive();
             Invoke("Cross", 1.0f);
-            Invoke("CW", 1.0f);
+            Invoke("CW", 1.0f);*/
         }
     }
 
@@ -55,5 +79,16 @@ public class DShapeSelectorMinimum1 : MonoBehaviour
     {
         text = FindObjectOfType<TextPanelManger1>();
         text.MinWrongWrong();
+    }
+
+    public void CWW() //change
+    {
+        text = FindObjectOfType<TextPanelManger1>();
+        text.WrongNotActive();
+    }
+    public void CWWW() //change
+    {
+        text = FindObjectOfType<TextPanelManger1>();
+        text.MinCorrect();
     }
 }

@@ -8,6 +8,7 @@ public class DCodePanelCircleOne : MonoBehaviour
 
     [SerializeField] Text codeText;
     string codeTextValue = "";
+    string enterValue;
 
     TextPanelManger text;
 
@@ -16,14 +17,14 @@ public class DCodePanelCircleOne : MonoBehaviour
     {
         codeText.text = codeTextValue;
 
-        if (codeTextValue == "5")
+        if (enterValue == "5")
         {
             text = FindObjectOfType<TextPanelManger>();
             text.Correct();
             Invoke("Tick", 1.0f);
         }
 
-        if (codeTextValue != "5" && codeTextValue.Length == 1)
+        if (enterValue != "5" && enterValue.Length >= 1)
         {
             codeTextValue = "";
             text = FindObjectOfType<TextPanelManger>();
@@ -38,6 +39,16 @@ public class DCodePanelCircleOne : MonoBehaviour
     public void AddDigit(string digit)
     {
         codeTextValue += digit;
+    }
+
+    public void clearDigit()  //CHANGE
+    {
+        codeTextValue = "";
+    }
+
+    public void enter()  //CHANGE
+    {
+        enterValue = codeTextValue;
     }
 
     public void Tick()

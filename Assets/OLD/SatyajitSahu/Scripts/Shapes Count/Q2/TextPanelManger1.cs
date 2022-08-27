@@ -303,6 +303,7 @@ public class TextPanelManger1 : MonoBehaviour
 
     public void MaxCorrect()
     {
+        Destroy(maxPanel);
         correctPanel.SetActive(false);
         correctText.SetActive(false);  //c4
         //maxPanel.SetActive(false);
@@ -316,6 +317,7 @@ public class TextPanelManger1 : MonoBehaviour
 
     public void MinCorrect()
     {
+        Destroy(minPanel);
         correctPanel.SetActive(false);
         correctText.SetActive(false);  //c4
         minPanel.SetActive(false);

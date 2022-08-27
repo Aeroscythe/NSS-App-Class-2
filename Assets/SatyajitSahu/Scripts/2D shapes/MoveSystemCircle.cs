@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveSystemDiamond : MonoBehaviour
+public class MoveSystemCircle : MonoBehaviour
 {
     public GameObject correctForm;
     private bool moving;
     private bool finish;
+
+    int i = 1; //CHANGE
 
     [SerializeField] float xMinDiastance = 2.6f;
     [SerializeField] float yMinDiastance = 2.4f;
@@ -17,7 +19,6 @@ public class MoveSystemDiamond : MonoBehaviour
     private Vector3 resetPosition;
 
     PanelChanger p;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -67,14 +68,38 @@ public class MoveSystemDiamond : MonoBehaviour
             finish = true;
             p = FindObjectOfType<PanelChanger>();
             p.Correct();
+            Invoke("Change", 2.0f);
         }
         else
         {
-            this.transform.position = new Vector3(resetPosition.x, resetPosition.y, resetPosition.z);
-            p = FindObjectOfType<PanelChanger>();
-            p.WrongActive();
-            Invoke("WrongEnd", 1.0f);
+            while (i <= 3)
+            {
+                this.transform.position = new Vector3(resetPosition.x, resetPosition.y, resetPosition.z);
+                //p = FindObjectOfType<PanelChanger>();
+                //p.WrongActive();
+                //Invoke("WrongEnd", 1.0f);
+                if (i < 3)
+                {
+                    p = FindObjectOfType<PanelChanger>();
+                    p.WrongActive();
+                    Invoke("WrongEnd", 1.0f);
+                }
+                if (i == 3)
+                {
+                    p = FindObjectOfType<PanelChanger>();
+                    p.SphereCorrect();
+                    Invoke("Change", 2.0f);
+                }
+                i = i + 1;
+                break;
+            }      //CHANGE
         }
+    }
+
+    public void Change()
+    {
+        p = FindObjectOfType<PanelChanger>();
+        p.Q3();
     }
 
     public void WrongEnd()

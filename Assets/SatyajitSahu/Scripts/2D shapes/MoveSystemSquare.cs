@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveSystemCircle : MonoBehaviour
+public class MoveSystemSquare : MonoBehaviour
 {
     public GameObject correctForm;
     private bool moving;
     private bool finish;
+
+    int i = 1;
 
     [SerializeField] float xMinDiastance = 2.6f;
     [SerializeField] float yMinDiastance = 2.4f;
@@ -70,17 +72,34 @@ public class MoveSystemCircle : MonoBehaviour
         }
         else
         {
-            this.transform.position = new Vector3(resetPosition.x, resetPosition.y, resetPosition.z);
-            p = FindObjectOfType<PanelChanger>();
-            p.WrongActive();
-            Invoke("WrongEnd", 1.0f);
+            while (i <= 3)
+            {
+                this.transform.position = new Vector3(resetPosition.x, resetPosition.y, resetPosition.z);
+                //p = FindObjectOfType<PanelChanger>();
+                //p.WrongActive();
+                //Invoke("WrongEnd", 1.0f);
+                if (i < 3)
+                {
+                    p = FindObjectOfType<PanelChanger>();
+                    p.WrongActive();
+                    Invoke("WrongEnd", 1.0f);
+                }
+                if (i == 3)
+                {
+                    p = FindObjectOfType<PanelChanger>();
+                    p.CubeCorrect();
+                    Invoke("Change", 2.0f);
+                }
+                i = i + 1;
+                break;
+            }      //CHANGE
         }
     }
 
     public void Change()
     {
         p = FindObjectOfType<PanelChanger>();
-        p.Q3();
+        p.Q2();
     }
 
     public void WrongEnd()
