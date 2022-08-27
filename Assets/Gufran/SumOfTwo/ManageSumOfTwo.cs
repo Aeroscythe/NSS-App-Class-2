@@ -14,7 +14,7 @@ public class ManageSumOfTwo : MonoBehaviour
     public Text finalnum;
     public Text remark;
     int wrongcnt = 0;
-    void Start()
+    void OnEnable()
     {
         reinstantiate();
     }
