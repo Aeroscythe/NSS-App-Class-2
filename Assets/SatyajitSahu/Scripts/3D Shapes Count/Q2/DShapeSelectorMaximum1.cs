@@ -13,6 +13,11 @@ public class DShapeSelectorMaximum1 : MonoBehaviour
 
     TextPanelManger1 text;
 
+    private void OnEnable()
+    {
+        codeTextValue = "";
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -10,6 +10,8 @@ public class QM2 : MonoBehaviour
     public GameObject[] options;
     public int currentQuestion;
 
+    int j = 0;
+
     public GameObject correctPanel;
     public GameObject wrongPanel;
 
@@ -32,8 +34,43 @@ public class QM2 : MonoBehaviour
 
     private void Start()
     {
+        /*totalQuestions = QnA.Count;
+        generateQuestion();*/
+    }
+
+    private void OnEnable()
+    {
+        
+        currentQuestion = 0;
         totalQuestions = QnA.Count;
         generateQuestion();
+
+        button.SetActive(true);
+        button1.SetActive(true);
+        
+        Quizpanel.SetActive(true);
+        questionText.SetActive(true);
+        qImage.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        correctPanel.SetActive(false);
+        wrongPanel.SetActive(false);
+
+        qImage.SetActive(false);
+
+        allDone.SetActive(false);
+
+        button.SetActive(false);
+        button1.SetActive(false);
+
+        tick.SetActive(false);
+        cross.SetActive(false);
+
+        Quizpanel.SetActive(false);
+        questionText.SetActive(false);
+
     }
 
     void GameOver()
@@ -82,6 +119,8 @@ public class QM2 : MonoBehaviour
             if (QnA[currentQuestion].CorrectAnswer == i + 1)
             {
                 options[i].GetComponent<AS2>().isCorrect = true;
+                
+                
             }
         }
     }
@@ -94,11 +133,16 @@ public class QM2 : MonoBehaviour
 
             QuestionTxt.GetComponent<Text>().text = QnA[currentQuestion].Question; //Change
             SetAnswers();
+            j++;
         }
         else
         {
             Debug.Log("Out of Questions");
             GameOver();
+
+            Destroy(qImage);
+            Destroy(button);
+            Destroy(button1);
         }
 
 

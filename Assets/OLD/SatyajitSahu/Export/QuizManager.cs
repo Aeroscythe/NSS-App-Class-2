@@ -31,8 +31,46 @@ public class QuizManager : MonoBehaviour
 
     private void Start()
     {
+        /*totalQuestions = QnA.Count;
+        generateQuestion();*/
+    }
+
+    private void OnEnable()
+    {
+
+        currentQuestion = 0;
         totalQuestions = QnA.Count;
         generateQuestion();
+
+        button.SetActive(true);
+        button1.SetActive(true);
+        button2.SetActive(true);
+        button3.SetActive(true);
+
+        Quizpanel.SetActive(true);
+        qImage.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        correctPanel.SetActive(false);
+        wrongPanel.SetActive(false);
+
+        qImage.SetActive(false);
+
+        allDone.SetActive(false);
+
+        button.SetActive(false);
+        button1.SetActive(false);
+        button2.SetActive(false);
+        button3.SetActive(false);
+
+        //tick.SetActive(false);
+        //cross.SetActive(false);
+
+        Quizpanel.SetActive(false);
+        //questionText.SetActive(false);
+
     }
 
     void GameOver()
@@ -96,6 +134,12 @@ public class QuizManager : MonoBehaviour
         {
             Debug.Log("Out of Questions");
             GameOver();
+
+            Destroy(qImage);
+            Destroy(button);
+            Destroy(button1);
+            Destroy(button2);
+            Destroy(button3);
         }
 
 

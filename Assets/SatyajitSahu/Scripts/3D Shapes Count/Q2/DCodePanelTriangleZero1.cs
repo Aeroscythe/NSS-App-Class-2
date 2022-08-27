@@ -12,6 +12,12 @@ public class DCodePanelTriangleZero1 : MonoBehaviour
 
     TextPanelManger1 text;
 
+    private void OnEnable()
+    {
+        codeTextValue = "";
+        enterValue = "";
+    }
+
     // Update is called once per frame
     void Update()
     {

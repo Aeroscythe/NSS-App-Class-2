@@ -12,6 +12,11 @@ public class DShapeSelectorMinimum : MonoBehaviour
 
     TextPanelManger text;
 
+    private void OnEnable()
+    {
+        codeTextValue = "";
+    }
+
     // Update is called once per frame
     void Update()
     {
